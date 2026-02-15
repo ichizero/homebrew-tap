@@ -11,18 +11,10 @@ class ProtocGenConnectKtor < Formula
     if Hardware::CPU.intel?
       url "https://github.com/ichizero/connect-ktor/releases/download/v0.1.9/connect-ktor_Darwin_x86_64.tar.gz"
       sha256 "99a0d36f87117d7a007efb23880143851ca047216127372f1809b2134347f675"
-
-      def install
-        bin.install "protoc-gen-connect-ktor"
-      end
     end
     if Hardware::CPU.arm?
       url "https://github.com/ichizero/connect-ktor/releases/download/v0.1.9/connect-ktor_Darwin_arm64.tar.gz"
       sha256 "eb4dd00a5a8f4ca298350af8acc7e140cb08cbe00671da0ee1c06b784f7dacc7"
-
-      def install
-        bin.install "protoc-gen-connect-ktor"
-      end
     end
   end
 
@@ -30,16 +22,14 @@ class ProtocGenConnectKtor < Formula
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
       url "https://github.com/ichizero/connect-ktor/releases/download/v0.1.9/connect-ktor_Linux_x86_64.tar.gz"
       sha256 "6065e5e92eef94c3da574af3f7b56fad8ab4f5deb7c96544b276d61e5e1a478e"
-      def install
-        bin.install "protoc-gen-connect-ktor"
-      end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
       url "https://github.com/ichizero/connect-ktor/releases/download/v0.1.9/connect-ktor_Linux_arm64.tar.gz"
       sha256 "deaca3156925097f4e3bcd5d0ef08b8347a7e4ae5a72eb990a1b1dcbbe3d1215"
-      def install
-        bin.install "protoc-gen-connect-ktor"
-      end
     end
+  end
+
+  def install
+    bin.install "protoc-gen-connect-ktor"
   end
 end
