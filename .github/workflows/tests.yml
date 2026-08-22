@@ -28,7 +28,20 @@ jobs:
 
       - run: brew test-bot --only-setup
 
-      - run: brew test-bot --only-tap-syntax
+      # `brew test-bot --only-tap-syntax` hardcodes `brew audit --except=installed`
+      # (see Homebrew/brew Library/Homebrew/test_bot/tap_syntax.rb) with no way to
+      # add extra --except values. Our formulas are pushed here directly by
+      # GoReleaser, whose Homebrew formula template always writes an explicit
+      # `version "x.y.z"` line (no config knob to omit it: see
+      # https://github.com/goreleaser/goreleaser/issues/1908). Since our download
+      # URLs already embed the version, `brew audit` flags that line as redundant
+      # and fails CI on every release. Run the same steps `--only-tap-syntax`
+      # would run, with `version` added to the audit exceptions.
+      - run: brew style ichizero/tap
+
+      - run: brew readall --aliases --os=all --arch=all ichizero/tap
+
+      - run: brew audit --except=installed,version --tap=ichizero/tap
 
       - run: brew test-bot --only-formulae
         if: github.event_name == 'pull_request'
