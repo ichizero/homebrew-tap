@@ -5,20 +5,20 @@
 class ProtocGenConnectKtor < Formula
   desc "Protoc plugin to generate Ktor server code"
   homepage "https://github.com/ichizero/connect-ktor"
-  version "0.3.0"
+  version "0.3.1"
 
   on_macos do
     if Hardware::CPU.intel?
-      url "https://github.com/ichizero/connect-ktor/releases/download/v0.3.0/connect-ktor_Darwin_x86_64.tar.gz"
-      sha256 "3e6e64bd388b327265448f6e9f13ae50c955b7079d8b4e9fdfc92d4dff2f1026"
+      url "https://github.com/ichizero/connect-ktor/releases/download/v0.3.1/connect-ktor_Darwin_x86_64.tar.gz"
+      sha256 "3ec471b4d068c0988c0545d423454e1532f6f42602f3087a92a9b008f0f0cd2d"
 
       define_method(:install) do
         bin.install "protoc-gen-connect-ktor"
       end
     end
     if Hardware::CPU.arm?
-      url "https://github.com/ichizero/connect-ktor/releases/download/v0.3.0/connect-ktor_Darwin_arm64.tar.gz"
-      sha256 "1ccde9149c6e31735f68bce9cfc7f73b81889881782e1fb2d4467e339ebffb90"
+      url "https://github.com/ichizero/connect-ktor/releases/download/v0.3.1/connect-ktor_Darwin_arm64.tar.gz"
+      sha256 "63a95867366e2ce8ebfd9103a1c48296cf68a25ed35d301e8e695ea558362372"
 
       define_method(:install) do
         bin.install "protoc-gen-connect-ktor"
@@ -28,15 +28,15 @@ class ProtocGenConnectKtor < Formula
 
   on_linux do
     if Hardware::CPU.intel? && Hardware::CPU.is_64_bit?
-      url "https://github.com/ichizero/connect-ktor/releases/download/v0.3.0/connect-ktor_Linux_x86_64.tar.gz"
-      sha256 "375324cffe7a5afb943dca3faca031834749ea522e78c55fbbf67931a2e8535c"
+      url "https://github.com/ichizero/connect-ktor/releases/download/v0.3.1/connect-ktor_Linux_x86_64.tar.gz"
+      sha256 "ea09d01d4f5b5ed323b97eea00542791c45fd7be21f8ab7075bd9a0affda0cf0"
       define_method(:install) do
         bin.install "protoc-gen-connect-ktor"
       end
     end
     if Hardware::CPU.arm? && Hardware::CPU.is_64_bit?
-      url "https://github.com/ichizero/connect-ktor/releases/download/v0.3.0/connect-ktor_Linux_arm64.tar.gz"
-      sha256 "66898e6bfc9726caaf84bb59d559890221e465892b807b92b2f7e55090997919"
+      url "https://github.com/ichizero/connect-ktor/releases/download/v0.3.1/connect-ktor_Linux_arm64.tar.gz"
+      sha256 "0f6da2cfcca567025ff08fbe382709a9fa0dc7bb2efb5b679a4a511763dc3c60"
       define_method(:install) do
         bin.install "protoc-gen-connect-ktor"
       end
