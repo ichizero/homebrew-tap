@@ -1,18 +1,34 @@
 # ichizero Tap
 
-## How do I install these formulae?
+## Installing formulae
 
-`brew install ichizero/tap/<formula>`
+Install a formula directly:
 
-Or `brew tap ichizero/tap` and then `brew install <formula>`.
+```sh
+brew install ichizero/tap/<formula>
+```
 
-Or, in a [`brew bundle`](https://github.com/Homebrew/homebrew-bundle) `Brewfile`:
+Or add the tap first, then install a formula by name:
+
+```sh
+brew tap ichizero/tap
+brew install <formula>
+```
+
+For Homebrew Bundle, add the tap and formula to a `Brewfile`:
 
 ```ruby
 tap "ichizero/tap"
 brew "<formula>"
 ```
 
-## Documentation
+## Bottle publishing
 
-`brew help`, `man brew` or check [Homebrew's documentation](https://docs.brew.sh).
+Pull requests run Homebrew's `brew test-bot` checks and build bottles on macOS
+and Linux. Both bottle archives and metadata must be present for the checks to
+pass. After a Formula change is merged, the same build runs again on `main`.
+Only bottles built on `main` are published, and the workflow commits their
+metadata to the Formula.
+
+See [Homebrew's documentation](https://docs.brew.sh/How-to-Create-and-Maintain-a-Tap)
+for the tap workflow.
