@@ -16,7 +16,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [ubuntu-latest, macos-26, xcode-27]
     runs-on: ${{ matrix.os }}
     steps:
       - name: Set up Homebrew
@@ -82,8 +82,8 @@ jobs:
           from pathlib import Path
 
           metadata = sorted(Path('.').glob('*.bottle.json'))
-          if len(metadata) != 2:
-              raise SystemExit(f'Expected two bottle JSON files, found {len(metadata)}')
+          if len(metadata) != 3:
+              raise SystemExit(f'Expected three bottle JSON files, found {len(metadata)}')
 
           tags = []
           for path in metadata:
@@ -102,10 +102,9 @@ jobs:
                       raise SystemExit(f'Checksum mismatch for {archive}')
                   tags.append(tag)
 
-          has_linux = any(tag.endswith('_linux') for tag in tags)
-          has_macos = any(not tag.endswith('_linux') for tag in tags)
-          if len(set(tags)) != 2 or not (has_linux and has_macos):
-              raise SystemExit(f'Expected distinct macOS and Linux bottles, found {tags}')
+          expected_tags = {'x86_64_linux', 'arm64_tahoe', 'arm64_golden_gate'}
+          if set(tags) != expected_tags:
+              raise SystemExit(f'Expected {expected_tags}, found {tags}')
           PY
 
       - name: Publish bottles
