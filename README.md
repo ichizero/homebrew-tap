@@ -24,10 +24,11 @@ brew "<formula>"
 
 ## Bottle publishing
 
-Pull requests run Homebrew's `brew test-bot` checks and build bottle artifacts
-for the configured GitHub-hosted runners. After reviewing a passing pull
-request, apply the `pr-pull` label to run the publish workflow. It uses
-`brew pr-pull` to upload the bottles and update the Formula's bottle metadata.
+Pull requests run Homebrew's `brew test-bot` checks and build bottles on macOS
+and Linux. Both bottle archives and metadata must be present for the checks to
+pass. After a Formula change is merged, the same build runs again on `main`.
+Only bottles built on `main` are published, and the workflow commits their
+metadata to the Formula.
 
 See [Homebrew's documentation](https://docs.brew.sh/How-to-Create-and-Maintain-a-Tap)
 for the tap workflow.
