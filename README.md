@@ -25,8 +25,9 @@ brew "<formula>"
 ## Bottle publishing
 
 Pull requests run Homebrew's `brew test-bot` checks and build bottles on macOS
-and Linux. Both bottle archives and metadata must be present for the checks to
-pass. After a Formula change is merged, the same build runs again on `main`.
+26, macOS 27, and Linux. Bottle archives and metadata for every runner must be
+present for the checks to pass. After a Formula change is merged, the same
+build runs again on `main`.
 Only bottles built on `main` are published, and the workflow commits their
 metadata to the Formula.
 
