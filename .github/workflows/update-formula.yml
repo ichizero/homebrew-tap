@@ -91,14 +91,10 @@ jobs:
           branch="automation/protoc-gen-connect-ktor-${RELEASE_TAG}"
           existing_pr="$(gh pr list --repo ichizero/homebrew-tap --state open \
             --head "$branch" --json url --jq '.[0].url // empty')"
-          if [[ -n "$existing_pr" ]]; then
-            echo "Formula update PR already exists: $existing_pr"
-            exit 0
-          fi
 
           closed_pr="$(gh pr list --repo ichizero/homebrew-tap --state closed \
             --head "$branch" --json url --jq '.[0].url // empty')"
-          if [[ -n "$closed_pr" ]]; then
+          if [[ -z "$existing_pr" && -n "$closed_pr" ]]; then
             echo "Formula update PR was closed: $closed_pr; review it before retrying" >&2
             exit 1
           fi
@@ -131,6 +127,11 @@ jobs:
           else
             echo "Could not check for existing update branch: $branch" >&2
             exit "$branch_status"
+          fi
+
+          if [[ -n "$existing_pr" ]]; then
+            echo "Formula update PR already exists and its branch matches: $existing_pr"
+            exit 0
           fi
 
           cat > "$RUNNER_TEMP/tap-pr.md" <<EOF
