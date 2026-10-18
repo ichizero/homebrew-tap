@@ -7,6 +7,14 @@ class ProtocGenConnectKtor < Formula
   url "https://github.com/ichizero/connect-ktor/archive/refs/tags/v0.4.1.tar.gz"
   sha256 "c1683a3394a5a44d256029d84f255ca2a55d51771e9375d354d8c3bf34ba2495"
 
+  bottle do
+    root_url "https://github.com/ichizero/homebrew-tap/releases/download/protoc-gen-connect-ktor-0.4.1"
+    rebuild 1
+    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "53b551116c95369e8c437fe285dd729905e557d3d9acee043d6beb3ca5301507"
+    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "f74eea51f2f9c60e28c4af2bc9a3b3eb7a801df312fe58eee08607939d2f96fc"
+    sha256 cellar: :any_skip_relocation, x86_64_linux:      "ff6c5088eb1dc49c307a1b20c5abab51f9bb74d2e732c907358d6ec485820064"
+  end
+
   depends_on "go" => :build
 
   def install
