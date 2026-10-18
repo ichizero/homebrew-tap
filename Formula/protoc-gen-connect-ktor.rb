@@ -4,16 +4,8 @@
 class ProtocGenConnectKtor < Formula
   desc "Protoc plugin to generate Ktor server code"
   homepage "https://github.com/ichizero/connect-ktor"
-  url "https://github.com/ichizero/connect-ktor/archive/refs/tags/v0.4.0.tar.gz"
-  sha256 "89d1fc501fa50b3f6de5a37441780efd6c9ecd79606fd534ca088093c331c06d"
-
-  bottle do
-    root_url "https://github.com/ichizero/homebrew-tap/releases/download/protoc-gen-connect-ktor-0.4.0"
-    rebuild 1
-    sha256 cellar: :any_skip_relocation, arm64_golden_gate: "8c291718ab5f590e85d4ffec2dd63cfcbb6b08fdf8141be6767cd3f8d647fd74"
-    sha256 cellar: :any_skip_relocation, arm64_tahoe:       "aab91666c5bba1776a79fefc0f2cf54d8c6dad7bb6821c4179bccd28d5981c24"
-    sha256 cellar: :any_skip_relocation, x86_64_linux:      "bea02f7f8844cd2ba162681db31596d23c61bf8a2cfd33b922ab763c91198937"
-  end
+  url "https://github.com/ichizero/connect-ktor/archive/refs/tags/v0.4.1.tar.gz"
+  sha256 "c1683a3394a5a44d256029d84f255ca2a55d51771e9375d354d8c3bf34ba2495"
 
   depends_on "go" => :build
 
@@ -26,7 +18,7 @@ class ProtocGenConnectKtor < Formula
       libexec.install "protoc-gen-connect-ktor"
     end
 
-    # v0.4.0's Go entry point rejects positional arguments, so expose the
+    # The Go entry point rejects positional arguments, so expose the
     # package version here and delegate protoc plugin invocations unchanged.
     (bin/"protoc-gen-connect-ktor").write <<~EOS
       #!/bin/sh
