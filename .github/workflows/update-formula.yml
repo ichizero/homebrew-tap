@@ -77,15 +77,28 @@ jobs:
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Create tap pull request token
+        id: tap-token
+        if: steps.formula.outputs.changed == 'true'
+        uses: actions/create-github-app-token@64ab729a6294000f5aa4a4bc0b73d1f32bc45510 # v3.3.0
+        with:
+          # v3.3.0 deprecates app-id; client-id accepts the numeric App ID.
+          client-id: ${{ vars.TAP_APP_ID }}
+          private-key: ${{ secrets.TAP_APP_PRIVATE_KEY }}
+          owner: ichizero
+          repositories: homebrew-tap
+          permission-contents: write
+          permission-pull-requests: write
+
       - name: Open Formula update PR
         if: steps.formula.outputs.changed == 'true'
         env:
-          GH_TOKEN: ${{ secrets.TAP_PR_TOKEN }}
+          GH_TOKEN: ${{ steps.tap-token.outputs.token }}
           RELEASE_TAG: ${{ inputs.tag }}
         run: |
           set -euo pipefail
           if [[ -z "${GH_TOKEN:-}" ]]; then
-            echo "TAP_PR_TOKEN is required (Contents and Pull requests write on this tap)" >&2
+            echo "GitHub App token is required to push the Formula branch and open the pull request" >&2
             exit 1
           fi
           branch="automation/protoc-gen-connect-ktor-${RELEASE_TAG}"
@@ -122,6 +135,8 @@ jobs:
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git add Formula/protoc-gen-connect-ktor.rb
             git commit -m "chore(homebrew): update protoc-gen-connect-ktor to ${RELEASE_TAG}"
+            # GH_TOKEN is the App installation token, so this push and the
+            # pull request are attributed to the App and pull_request CI runs.
             gh auth setup-git --hostname github.com
             git push --set-upstream origin "$branch"
           else
