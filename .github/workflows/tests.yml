@@ -41,7 +41,7 @@ jobs:
       - name: Require bottle and metadata
         run: |
           shopt -s nullglob
-          bottles=( *.bottle.*.tar.gz )
+          bottles=( *.bottle.tar.gz *.bottle.*.tar.gz )
           metadata=( *.bottle.json )
           test "${#bottles[@]}" -gt 0
           test "${#metadata[@]}" -gt 0
